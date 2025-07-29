@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Select Location</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="location-wrapper">
+    <div class="location-box">
+      <h1>Select Your Location</h1>
+      <div class="location-buttons">
+        <button onclick="selectLocation('New York')">New York</button>
+        <button onclick="selectLocation('Los Angeles')">Los Angeles</button>
+        <button onclick="selectLocation('Chicago')">Chicago</button>
+        <button onclick="selectLocation('Houston')">Houston</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <script src="../js/firebase-config.js"></script>
+
+  <script>
+    function selectLocation(location) {
+      localStorage.setItem("selectedLocation", location);
+      window.location.href = "colleges.html";
+    }
+  </script>
+</body>
+</html>

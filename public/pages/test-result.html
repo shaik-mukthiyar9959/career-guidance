@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Test Result</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="container result-wrapper">
+    <h1>Your Aptitude Test Score</h1>
+    <p id="scoreDisplay">Loading...</p>
+    <button onclick="goToCareerSelection()">Continue</button>
+  </div>
+
+  <script>
+    const score = localStorage.getItem('testScore');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    if (score !== null) {
+      scoreDisplay.textContent = `You scored ${score} out of 3`;
+    } else {
+      scoreDisplay.textContent = 'No score found. Please take the test.';
+    }
+
+    function goToCareerSelection() {
+      window.location.href = 'career-selection.html';
+    }
+  </script>
+</body>
+</html>

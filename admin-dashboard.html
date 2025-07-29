@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <span id="adminEmail"></span>
+    <button onclick="adminLogout()">Logout</button>
+  </div>
+
+  <!-- Main Content -->
+  <h1>Admin Dashboard</h1>
+  <h2>Add College</h2>
+
+  <!-- Add College Form -->
+  <div class="form-container">
+    <input type="text" id="collegeName" placeholder="College Name" />
+    <input type="text" id="career" placeholder="Career (engineering, management)" />
+    <input type="text" id="location" placeholder="Location (india / abroad)" />
+    <input type="text" id="fees" placeholder="Fees" />
+    <input type="text" id="eligibility" placeholder="Eligibility" />
+    <button onclick="addCollege()">Add College</button>
+  </div>
+
+  <!-- Existing Colleges -->
+  <h2>Existing Colleges</h2>
+  <div id="collegeList"></div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+
+  <!-- Config & Scripts -->
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/logger.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

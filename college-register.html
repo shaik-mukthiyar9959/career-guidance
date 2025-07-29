@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Registration</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="registration-wrapper">
+  <header class="header">
+    <span id="userEmail"></span>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <div class="registration-box">
+    <h1>College Registration</h1>
+    <form id="registrationForm">
+      <input type="text" id="fullname" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="phone" placeholder="Phone Number" required>
+      <input type="text" id="qualification" placeholder="Qualification" required>
+      <button type="submit">Submit & Take Test</button>
+    </form>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <!-- Firebase Config & Custom Scripts -->
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/logger.js"></script>
+  <script src="../js/auth.js"></script>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const fullname = document.getElementById('fullname').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const qualification = document.getElementById('qualification').value;
+      const userId = localStorage.getItem('userId');
+      const collegeId = localStorage.getItem('collegeId');
+
+      db.collection('registrations').add({
+        userId, collegeId, fullname, email, phone, qualification, timestamp: new Date()
+      }).then(() => {
+        alert('Registration Successful!');
+        window.location.href = 'aptitude-test.html';
+      });
+    });
+  </script>
+</body>
+
+</html>

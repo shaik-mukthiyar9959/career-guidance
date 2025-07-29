@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Selection</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="career-wrapper">
+  <header class="header">
+    <span id="userEmail"></span>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <div class="career-box">
+    <h1>Select Your Career</h1>
+    <select id="career">
+      <option value="">--Choose a Career--</option>
+      <option value="engineering">Engineering</option>
+      <option value="management">Management</option>
+      <option value="medical">Medical</option>
+      <option value="arts">Arts</option>
+      <option value="science">Science</option>
+    </select>
+    <button onclick="goToLocation()">Next</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/logger.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/student.js"></script>
+</body>
+
+</html>

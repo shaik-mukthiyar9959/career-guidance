@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register for College</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="registration-wrapper">
+    <div class="registration-box">
+      <h1>College Registration</h1>
+      <form id="registrationForm">
+        <input type="text" id="studentName" placeholder="Your Name" required />
+        <input type="email" id="studentEmail" placeholder="Your Email" required />
+        <input type="text" id="studentPhone" placeholder="Phone Number" required />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <!-- Firebase config -->
+  <script src="../js/firebase-config.js"></script>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const studentName = document.getElementById('studentName').value.trim();
+      const studentEmail = document.getElementById('studentEmail').value.trim();
+      const studentPhone = document.getElementById('studentPhone').value.trim();
+      const collegeId = localStorage.getItem('collegeId');
+
+      if (!studentName || !studentEmail || !studentPhone || !collegeId) {
+        alert('Please fill all the fields.');
+        return;
+      }
+
+      db.collection('registrations').add({
+        collegeId,
+        studentName,
+        studentEmail,
+        studentPhone,
+        registeredAt: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        alert('Registration successful!');
+        window.location.href = 'aptitude-test.html';
+      })
+      .catch((error) => {
+        console.error('Registration error:', error);
+        alert('Failed to register. Please try again.');
+      });
+    });
+  </script>
+</body>
+</html>

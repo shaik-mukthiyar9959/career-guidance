@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Result</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Your Aptitude Test Result</h1>
+    <h2 id="score"></h2>
+    <button onclick="window.location.href='career-selection.html'">Take Another Test</button>
+  </div>
+  <script>
+    const score = localStorage.getItem('testScore');
+    document.getElementById('score').textContent = `You scored ${score}/3`;
+  </script>
+</body>
+</html>

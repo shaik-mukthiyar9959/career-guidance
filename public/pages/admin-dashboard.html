@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <span id="adminEmail"></span>
+    <button onclick="adminLogout()">Logout</button>
+  </div>
+
+  <!-- Main Content -->
+  <h1>Admin Dashboard</h1>
+  <h2>Add College</h2>
+
+  <div class="form-container">
+    <input type="text" id="collegeName" placeholder="College Name" />
+    <input type="text" id="career" placeholder="Career (engineering, medicine, business)" />
+    <input type="text" id="location" placeholder="Location (e.g., India, Abroad)" />
+    <input type="text" id="fees" placeholder="Fees" />
+    <input type="text" id="eligibility" placeholder="Eligibility" />
+    <button onclick="addCollege()">Add College</button>
+  </div>
+
+  <h2>Existing Colleges</h2>
+  <div id="collegeList"></div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <!-- Firebase Config -->
+  <script src="../js/firebase-config.js"></script>
+
+  <!-- Admin Script -->
+  <script>
+    function addCollege() {
+      const name = document.getElementById('collegeName').value.trim();
+      const career = document.getElementById('career').value.trim();
+      const location = document.getElementById('location').value.trim();
+      const fees = document.getElementById('fees').value.trim();
+      const eligibility = document.getElementById('eligibility').value.trim();
+
+      if (!name || !career || !location || !fees || !eligibility) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      db.collection('colleges').add({
+        name,
+        career,
+        location,
+        fees,
+        eligibility
+      })
+      .then(() => {
+        alert('College added!');
+        loadColleges();
+      })
+      .catch((error) => {
+        console.error('Error adding college:', error);
+        alert('Failed to add college.');
+      });
+    }
+
+    function loadColleges() {
+      const list = document.getElementById('collegeList');
+      list.innerHTML = '';
+      db.collection('colleges').get().then(snapshot => {
+        snapshot.forEach(doc => {
+          const c = doc.data();
+          const div = document.createElement('div');
+          div.innerHTML = `
+            <strong>${c.name}</strong><br>
+            Career: ${c.career}<br>
+            Location: ${c.location}<br>
+            Fees: ${c.fees}<br>
+            Eligibility: ${c.eligibility}<br><hr>
+          `;
+          list.appendChild(div);
+        });
+      });
+    }
+
+    function adminLogout() {
+      auth.signOut().then(() => {
+        alert('Logged out');
+        window.location.href = 'admin-login.html';
+      });
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = 'admin-login.html';
+      } else {
+        document.getElementById('adminEmail').textContent = user.email;
+        loadColleges();
+      }
+    });
+  </script>
+</body>
+</html>
